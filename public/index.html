@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#0d1019" />
-<title>Rizky Hidayat | Habit & Pekerjaan</title>
+<title>Rizky Hidayat | Dashboard Produktivitas</title>
 <meta name="description" content="Daily tracker pribadi Rizky Hidayat untuk membangun habit, mengatur pekerjaan, dan melihat progres setiap hari." />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <style>
@@ -76,6 +76,7 @@ body::after{inset:0;background-image:radial-gradient(rgba(188,190,230,.2) .7px,t
 @media(max-width:740px){.side{background:linear-gradient(120deg,#161c2b,#111723);box-shadow:none}.brand-mark{width:42px;height:42px;border-radius:14px}.brand-mark svg{width:31px;height:31px}.hero h1{font-size:clamp(29px,7vw,36px)}.metric:hover{transform:none}}
 @media(prefers-reduced-motion:reduce){body::before,.navitem .dot,.eyebrow::before,.brand-mark::before,.hero h1,.brand{animation:none!important}.day:hover,.metric:hover,.add-btn:hover{transform:none}}
 </style>
+<link rel="stylesheet" href="/layout.css" />
 </head>
 <body>
 <div class="app">
@@ -124,7 +125,7 @@ body::after{inset:0;background-image:radial-gradient(rgba(188,190,230,.2) .7px,t
  function drawMetrics(){const ht=data.habits.length,hc=data.habits.filter(h=>habitChecked(selected,h.id)).length;const todays=data.tasks.filter(t=>t.date===selected);const tt=todays.length,tc=todays.filter(t=>t.done).length,remain=tt-tc;const hp=ht?Math.round(hc/ht*100):0,tp=tt?Math.round(tc/tt*100):0;$('habitCount').innerHTML=`${hc}<small> / ${ht}</small>`;$('habitPercent').textContent=hp+'% dari target hari ini';$('habitMeter').style.width=hp+'%';$('habitBar').style.width=hp+'%';$('habitProgress').textContent=`${hc} dari ${ht} selesai`;$('taskCount').innerHTML=`${tc}<small> / ${tt}</small>`;$('taskPercent').textContent=tp+'% dari pekerjaan hari ini';$('taskMeter').style.width=tp+'%';$('taskBar').style.width=tp+'%';$('taskProgress').textContent=`${tc} dari ${tt} selesai`;$('remaining').textContent=remain;$('remainingText').textContent=remain===0?'Semua tugas untuk hari ini beres':`${remain} tugas masih perlu dikerjakan`;$('remainingMeter').style.width=(tt?Math.round(remain/tt*100):0)+'%';}
  function drawHabits(){if(!data.habits.length){$('habitItems').innerHTML='<div class="empty"><div class="empty-icon">✳</div><strong>Belum ada habit</strong><p>Tekan + Habit untuk menambahkan kebiasaan harian.</p></div>';return} $('habitItems').innerHTML=data.habits.map(h=>{const done=habitChecked(selected,h.id),streak=habitStreak(h.id,selected);return `<div class="item ${done?'done':''}"><label class="check"><input type="checkbox" data-check-habit="${escape(h.id)}" ${done?'checked':''} aria-label="Selesai: ${escape(h.title)}"></label><div class="item-body"><div class="item-title">${escape(h.title)}</div>${h.detail?`<div class="item-detail">${escape(h.detail)}</div>`:''}</div><div class="item-right">${streak>=2?`<span class="streak">${streak} hari</span>`:''}<button type="button" class="iconbtn" data-edit-habit="${escape(h.id)}" aria-label="Edit habit ${escape(h.title)}" title="Edit habit">${iconEdit}</button></div></div>`}).join('');}
  function drawTasks(){const all=data.tasks.filter(t=>t.date===selected);const sorted=all.filter(t=>filter==='all'||(filter==='done'?t.done:!t.done)).sort((a,b)=>Number(a.done)-Number(b.done)||({high:0,medium:1,low:2}[a.priority]??1)-({high:0,medium:1,low:2}[b.priority]??1));document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));if(!sorted.length){$('taskItems').innerHTML=`<div class="empty"><div class="empty-icon">▤</div><strong>${all.length?'Tidak ada tugas pada filter ini':'Belum ada pekerjaan'}</strong><p>${all.length?'Coba lihat filter lainnya.':'Tekan + Tugas untuk menambah checklist pekerjaan.'}</p></div>`;return} $('taskItems').innerHTML=sorted.map(t=>`<div class="item ${t.done?'done':''}"><label class="check"><input type="checkbox" data-check-task="${escape(t.id)}" ${t.done?'checked':''} aria-label="Selesai: ${escape(t.title)}"></label><div class="item-body"><div class="item-title">${escape(t.title)}</div>${t.detail?`<div class="item-detail">${escape(t.detail)}</div>`:''}<div><span class="priority ${escape(t.priority)}">${{high:'Prioritas tinggi',medium:'Prioritas sedang',low:'Prioritas rendah'}[t.priority]||'Prioritas sedang'}</span></div></div><div class="item-right"><button type="button" class="iconbtn" data-edit-task="${escape(t.id)}" aria-label="Edit tugas ${escape(t.title)}" title="Edit tugas">${iconEdit}</button></div></div>`).join('');}
- function render(){drawDate();drawWeek();drawMetrics();drawHabits();drawTasks();}
+ function render(){drawDate();drawWeek();drawMetrics();drawHabits();drawTasks();window.rhUpdateAnalytics?.();}
  function setDay(day){if(!/^\d{4}-\d{2}-\d{2}$/.test(day)||Number.isNaN(Date.parse(day)))return;selected=day;render();}
  function modal(type,id=null){editing={type,id};const ent=id?(type==='habit'?data.habits:data.tasks).find(x=>x.id===id):null;if(id&&!ent)return;$('modalTitle').textContent=(ent?'Edit ':'Tambah ')+(type==='habit'?'Habit':'Tugas');$('titleLabel').textContent=type==='habit'?'Nama habit':'Nama pekerjaan';$('entryTitle').placeholder=type==='habit'?'Contoh: Baca 20 menit':'Contoh: Edit video klien';$('entryTitle').value=ent?.title||'';$('entryDetail').value=ent?.detail||'';$('entryPriority').value=ent?.priority||'medium';$('entryDate').value=ent?.date||selected;$('priorityField').classList.toggle('hidden',type==='habit');$('dueDateField').classList.toggle('hidden',type==='habit');$('deleteEntry').classList.toggle('hidden',!ent);$('modalBackdrop').classList.add('open');setTimeout(()=>$('entryTitle').focus(),30);}
  function closeModal(){editing=null;$('modalBackdrop').classList.remove('open');}
@@ -141,4 +142,5 @@ body::after{inset:0;background-image:radial-gradient(rgba(188,190,230,.2) .7px,t
  persist();render();
 })();
 </script>
+<script src="/workspaces.js"></script>
 </body></html>
