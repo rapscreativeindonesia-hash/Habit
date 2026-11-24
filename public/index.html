@@ -4,7 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#0d1019" />
-<title>Iky Creator Hub | Habit & Pekerjaan</title>
+<title>Rizky Hidayat | Habit & Pekerjaan</title>
+<meta name="description" content="Daily tracker pribadi Rizky Hidayat untuk membangun habit, mengatur pekerjaan, dan melihat progres setiap hari." />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <style>
 :root{color-scheme:dark;--bg:#0d1019;--panel:#171b27;--panel2:#1c2231;--border:#293040;--muted:#939dae;--text:#f4f5fb;--purple:#b8a2ff;--purple-deep:#7866d8;--mint:#87e7c1;--gold:#f2c77d;--red:#f18e9c;--shadow:0 20px 65px rgba(0,0,0,.17)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse 63% 24% at 85% 0%,rgba(94,72,154,.13),transparent),var(--bg);font:14px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Arial,sans-serif;color:var(--text);min-height:100vh}button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--purple);outline-offset:3px}button,select,input,textarea{touch-action:manipulation}a{color:var(--purple)}
@@ -18,12 +20,67 @@
 @media(max-width:740px){.app{display:block}.side{height:auto;position:static;display:flex;flex-direction:row;align-items:center;justify-content:space-between;padding:14px 20px;border-right:none;border-bottom:1px solid var(--border)}.brand{padding:0;justify-content:flex-start}.brand .brand-text{display:block}.navitem{width:auto;padding:12px}.side .navtitle,.aside-note,.side-foot{display:none}.content{padding:21px 16px 43px}.hero{align-items:flex-start;flex-direction:column;gap:16px;margin-top:26px}.hero h1{font-size:32px}.datebox{align-self:stretch;justify-content:space-between}.date-center{flex:1}.week{gap:5px;margin:23px 0 19px}.day{padding:10px 0 9px;border-radius:11px}.day .dd{font-size:17px}.day .dn{font-size:10px}.metrics{gap:8px}.metric{padding:13px;border-radius:13px}.metric-label{font-size:10px;line-height:1.3}.metric-icon{height:27px;width:27px;font-size:14px}.metric-value{font-size:24px;margin:12px 0 3px}.metric-value small{font-size:11px}.metric-sub{font-size:10px;line-height:1.3}.metric-line{margin-top:10px}.section-grid{grid-template-columns:1fr;gap:14px}.topline{font-size:11px}.top-right .small-btn{font-size:11px;padding:8px 10px}.section-header{padding:19px 17px 14px}.progress-mini{padding-left:17px;padding-right:17px}.filterbar{padding-left:17px;padding-right:17px}.footer-note{padding-bottom:8px}}
 @media(max-width:370px){.brand strong{font-size:13px}.brand small{font-size:9px}.hero h1{font-size:29px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.metrics .metric:nth-child(3){grid-column:span 2}.metric-value{font-size:29px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Rizky Hidayat — ambient visual system. Functional JS and saved user data remain intact. */
+:root{--bg:#0b0e18;--panel:#161c2b;--panel2:#1d2536;--border:#30384f;--muted:#9ca6bd;--purple:#beaaff;--purple-deep:#8872e5;--mint:#95edcf;--shadow:0 24px 70px rgba(3,6,16,.25)}
+body{background:#0b0e18;overflow-x:hidden;isolation:isolate}
+body::before,body::after{content:"";position:fixed;inset:-15%;pointer-events:none;z-index:0}
+body::before{background:radial-gradient(ellipse 38% 42% at 72% 10%,rgba(114,91,215,.21),transparent 74%),radial-gradient(ellipse 38% 42% at 17% 87%,rgba(46,148,137,.105),transparent 77%),radial-gradient(ellipse 35% 50% at 96% 80%,rgba(71,105,182,.12),transparent 78%);filter:blur(20px);transform:translate3d(0,0,0);animation:ambientFloat 24s ease-in-out infinite alternate}
+body::after{inset:0;background-image:radial-gradient(rgba(188,190,230,.2) .7px,transparent .8px);background-size:28px 28px;opacity:.19;mask-image:linear-gradient(140deg,transparent 6%,black 65%,transparent 100%)}
+@keyframes ambientFloat{0%{transform:translate3d(-2.5%,1%,0) scale(1)}50%{transform:translate3d(2%,-1.5%,0) scale(1.075)}100%{transform:translate3d(-1%,2.5%,0) scale(1.025)}}
+@keyframes glowPulse{0%,100%{opacity:.4;transform:scale(.93)}50%{opacity:.82;transform:scale(1.14)}}
+@keyframes brandReveal{0%{opacity:0;transform:translateY(7px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes lightSweep{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.app{position:relative;z-index:1}
+.side{background:linear-gradient(158deg,rgba(22,27,42,.97),rgba(14,19,31,.98) 65%,rgba(19,21,37,.99));border-color:#343b4b;box-shadow:12px 0 80px rgba(0,0,0,.09)}
+.side::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,transparent,rgba(169,149,255,.77),rgba(124,228,199,.56),transparent);opacity:.75}
+.brand{gap:13px;animation:brandReveal .7s ease-out both}
+.brand-mark{position:relative;isolation:isolate;overflow:hidden;flex-shrink:0;width:48px;height:48px;border:1px solid rgba(177,164,255,.42);border-radius:16px;background:linear-gradient(135deg,#344363,#343057 55%,#202f40);box-shadow:0 10px 28px rgba(122,105,217,.2),inset 0 1px 0 rgba(255,255,255,.16)}
+.brand-mark::before{content:"";position:absolute;inset:-16px;border-radius:50%;background:radial-gradient(circle,rgba(176,150,255,.45),transparent 58%);z-index:-1;animation:glowPulse 7s ease-in-out infinite}
+.brand-mark svg{width:35px;height:35px;display:block;filter:drop-shadow(0 1px 4px rgba(174,154,255,.32));transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.brand:hover .brand-mark svg{transform:scale(1.055)}
+.brand strong{font-size:15px;letter-spacing:-.45px;color:#f4f3ff}
+.brand small{font-size:9px;letter-spacing:2px;color:#adb6cc}
+.navitem{background:linear-gradient(105deg,rgba(86,71,135,.3),rgba(55,54,85,.28));border:1px solid rgba(161,143,225,.37);box-shadow:inset 0 1px rgba(255,255,255,.055),0 10px 25px rgba(0,0,0,.09);transition:background .3s,border-color .3s,transform .2s}
+.navitem:hover{transform:translateY(-1px);border-color:rgba(183,164,255,.66);background:rgba(104,86,166,.29)}
+.navitem .dot{box-shadow:0 0 0 4px rgba(183,164,255,.08),0 0 18px rgba(184,163,255,.6);animation:glowPulse 5s ease-in-out infinite}
+.aside-note{background:linear-gradient(140deg,rgba(38,44,67,.88),rgba(23,29,48,.91));border-color:rgba(147,155,193,.23);box-shadow:inset 0 1px rgba(255,255,255,.04)}
+.content{position:relative}
+.topline{color:#aeb8c7}
+.hero{position:relative}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;color:#c4b4ff;letter-spacing:2.5px}
+.eyebrow::before{content:"";height:7px;width:7px;display:inline-block;border-radius:50%;background:#9be7d0;box-shadow:0 0 0 4px rgba(155,231,208,.095),0 0 16px rgba(155,231,208,.5);animation:glowPulse 5s ease-in-out infinite}
+.hero h1{background:linear-gradient(110deg,#fff 4%,#f2f2ff 32%,#d8d2ff 59%,#fff 85%);background-size:170% 170%;color:transparent;background-clip:text;-webkit-background-clip:text;animation:lightSweep 16s ease-in-out infinite}
+.hero h1 span{background:linear-gradient(160deg,#bca3ff,#94e7d4);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.datebox,.small-btn{background:linear-gradient(140deg,rgba(30,38,56,.92),rgba(23,29,43,.94));border-color:#343e54}
+.day{background:linear-gradient(160deg,rgba(29,37,54,.91),rgba(21,27,41,.95));border-color:#353c4c;transition:background .3s,transform .25s,border-color .25s,box-shadow .25s}
+.day:hover{transform:translateY(-2px);border-color:#74689b}
+.day.active{background:linear-gradient(135deg,#a28af2 0%,#8169d9 45%,#6e67c4 100%);box-shadow:0 12px 28px rgba(114,91,205,.25),inset 0 1px rgba(255,255,255,.19)}
+.metric,.section-card{background:linear-gradient(145deg,rgba(31,38,57,.93),rgba(20,26,40,.96) 72%);box-shadow:0 18px 54px rgba(4,8,20,.12),inset 0 1px rgba(255,255,255,.035);border-color:#343d50;transition:border-color .28s,transform .28s,box-shadow .28s}
+.metric::before,.section-card::before{content:"";position:absolute;top:0;left:5%;right:5%;height:1px;background:linear-gradient(90deg,transparent,rgba(191,172,255,.45),rgba(153,232,216,.22),transparent);pointer-events:none}
+.section-card{position:relative}
+.metric:hover,.section-card:hover{border-color:rgba(164,151,217,.5);box-shadow:0 22px 64px rgba(4,8,20,.2),inset 0 1px rgba(255,255,255,.05)}
+.metric:hover{transform:translateY(-2px)}
+.metric-icon{box-shadow:inset 0 1px rgba(255,255,255,.07)}
+.section-badge{background:linear-gradient(130deg,rgba(76,62,116,.75),rgba(47,41,71,.8))}
+.add-btn{box-shadow:0 7px 18px rgba(165,142,246,.15);transition:transform .2s,box-shadow .2s,background .2s}
+.add-btn.task{box-shadow:0 7px 18px rgba(114,223,181,.11)}
+.add-btn:hover{transform:translateY(-1px);box-shadow:0 9px 24px rgba(165,142,246,.22)}
+.add-btn.task:hover{box-shadow:0 9px 24px rgba(114,223,181,.18)}
+.item{transition:background .25s}
+.item:hover{background:rgba(194,177,255,.035)}
+.check input{transition:transform .16s,filter .16s}
+.check input:checked{filter:drop-shadow(0 0 5px rgba(160,143,252,.45))}
+.check input:active{transform:scale(.9)}
+.modal{background:linear-gradient(145deg,#232b3d,#171e2d)}
+@media(max-width:740px){.side{background:linear-gradient(120deg,#161c2b,#111723);box-shadow:none}.brand-mark{width:42px;height:42px;border-radius:14px}.brand-mark svg{width:31px;height:31px}.hero h1{font-size:clamp(29px,7vw,36px)}.metric:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){body::before,.navitem .dot,.eyebrow::before,.brand-mark::before,.hero h1,.brand{animation:none!important}.day:hover,.metric:hover,.add-btn:hover{transform:none}}
 </style>
 </head>
 <body>
 <div class="app">
  <aside class="side" aria-label="Navigasi">
-  <div class="brand"><div class="brand-mark" aria-hidden="true">I.</div><div class="brand-text"><strong>Iky Creator Hub</strong><small>PERSONAL WORKSPACE</small></div></div>
+  <div class="brand"><div class="brand-mark" aria-hidden="true"><svg class="brand-symbol" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 46V18H24C30.5 18 34.5 21.3 34.5 26.5C34.5 32 30.5 35.5 24 35.5H12M24 35.5 35.5 46" stroke="#F5F2FF" stroke-width="4.7" stroke-linejoin="round" stroke-linecap="round"/><path d="M42 18V46M42 32H54M54 18V46" stroke="#C8F5E5" stroke-width="4.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="56.5" cy="10.5" r="2.5" fill="#C5B7FF"/></svg></div><div class="brand-text"><strong>Rizky Hidayat</strong><small>PERSONAL WORKSPACE</small></div></div>
   <div class="navtitle">Workspace</div>
   <button type="button" class="navitem" aria-current="page" title="Habit & Pekerjaan"><span>◉ &nbsp; Habit & Pekerjaan</span><span class="dot"></span></button>
   <div class="aside-note"><div class="top"><span>◈</span> Konsistensi dibangun setiap hari</div><p>Centang kebiasaan dan selesaikan pekerjaan. <strong>Progres tersimpan otomatis</strong> di browser ini.</p></div>
@@ -45,7 +102,7 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
 (()=>{'use strict';
- const KEY='iky_creator_hub_tracker_v1';
+ const KEY='rizky_hidayat_tracker_v2',LEGACY_KEY='iky_creator_hub_tracker_v1';
  const $=id=>document.getElementById(id);
  const iconEdit='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L10 16l-4 1 1-4 9.5-9.5Z"/></svg>';
  const currentISO=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
@@ -55,7 +112,7 @@
  const uid=()=>typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID():'id'+Date.now()+Math.random().toString(36).slice(2);
  const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const initial=()=>({habits:[{id:'h1',title:'Olahraga atau jalan kaki',detail:'Gerak aktif minimal 20 menit'},{id:'h2',title:'Belajar skill baru',detail:'Sisihkan 30 menit untuk berkembang'},{id:'h3',title:'Baca atau riset hal baru',detail:'Cari insight yang bisa diterapkan'},{id:'h4',title:'Review keuangan harian',detail:'Catat pemasukan dan pengeluaran'},{id:'h5',title:'Evaluasi hari ini',detail:'Tentukan prioritas untuk esok'}],tasks:[{id:'t1',title:'Riset 3 ide konten',detail:'Cari referensi dan tentukan angle',priority:'medium',date:currentISO(),done:false},{id:'t2',title:'Editing video short-form',detail:'Selesaikan 1 video yang siap upload',priority:'high',date:currentISO(),done:false},{id:'t3',title:'Follow-up calon klien',detail:'Periksa pesan dan proposal',priority:'medium',date:currentISO(),done:false}],habitLog:{}});
- let data;try{const raw=localStorage.getItem(KEY);const candidate=raw?JSON.parse(raw):initial();if(!Array.isArray(candidate.habits)||!Array.isArray(candidate.tasks)||!candidate.habitLog||typeof candidate.habitLog!=='object')throw Error('invalid');data=candidate;}catch(e){data=initial();}
+ let data;try{const raw=localStorage.getItem(KEY)??localStorage.getItem(LEGACY_KEY);const candidate=raw?JSON.parse(raw):initial();if(!Array.isArray(candidate.habits)||!Array.isArray(candidate.tasks)||!candidate.habitLog||typeof candidate.habitLog!=='object')throw Error('invalid');data=candidate;}catch(e){data=initial();}
  let selected=currentISO(),filter='all',editing=null,toastTimer;
  const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){notify('Gagal menyimpan. Periksa ruang browser.')}};
  const notify=msg=>{const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600)};
@@ -73,7 +130,7 @@
  function closeModal(){editing=null;$('modalBackdrop').classList.remove('open');}
  function saveEntry(e){e.preventDefault();if(!editing)return;const title=$('entryTitle').value.trim(),detail=$('entryDetail').value.trim();if(!title)return;const {type,id}=editing;if(type==='habit'){if(id){const h=data.habits.find(x=>x.id===id);if(h){h.title=title;h.detail=detail;}}else data.habits.push({id:uid(),title,detail});}else{const priority=$('entryPriority').value;const date=$('entryDate').value||selected;if(id){const t=data.tasks.find(x=>x.id===id);if(t){Object.assign(t,{title,detail,priority,date})}}else data.tasks.push({id:uid(),title,detail,priority,date,done:false});}persist();closeModal();render();notify(id?'Perubahan tersimpan':'Berhasil ditambahkan');}
  function deleteEntry(){if(!editing?.id)return;const {type,id}=editing;const name=(type==='habit'?data.habits:data.tasks).find(x=>x.id===id)?.title||'item';if(!confirm(`Hapus "${name}"?`))return;if(type==='habit'){data.habits=data.habits.filter(x=>x.id!==id);for(const date of Object.keys(data.habitLog))delete data.habitLog[date][id];}else data.tasks=data.tasks.filter(x=>x.id!==id);persist();closeModal();render();notify('Berhasil dihapus');}
- function exportData(){const blob=new Blob([JSON.stringify({version:1,exportedAt:new Date().toISOString(),data},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='iky-habit-pekerjaan-backup-'+currentISO()+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),200);$('backupMenu').classList.remove('open');notify('Backup diunduh');}
+ function exportData(){const blob=new Blob([JSON.stringify({version:1,exportedAt:new Date().toISOString(),data},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='rizky-hidayat-habit-pekerjaan-backup-'+currentISO()+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),200);$('backupMenu').classList.remove('open');notify('Backup diunduh');}
  function importData(file){if(!file||file.size>3e6){notify('File tidak valid atau terlalu besar');return}const reader=new FileReader();reader.onload=()=>{try{const obj=JSON.parse(String(reader.result));const d=obj.data||obj;if(!Array.isArray(d.habits)||!Array.isArray(d.tasks)||!d.habitLog||typeof d.habitLog!=='object')throw Error('invalid');if(!confirm('Impor backup akan mengganti data yang sekarang. Lanjutkan?'))return;data=d;persist();render();notify('Backup berhasil diimpor')}catch(e){notify('Format backup tidak valid')}};reader.readAsText(file)}
  $('todayBtn').addEventListener('click',()=>setDay(currentISO()));$('prevDay').addEventListener('click',()=>setDay(dayAdd(selected,-1)));$('nextDay').addEventListener('click',()=>setDay(dayAdd(selected,1)));$('datePick').addEventListener('change',e=>{if(e.target.value)setDay(e.target.value)});$('weekBar').addEventListener('click',e=>{const btn=e.target.closest('[data-day]');if(btn)setDay(btn.dataset.day)});document.querySelectorAll('[data-add]').forEach(b=>b.addEventListener('click',()=>modal(b.dataset.add)));
  $('habitItems').addEventListener('change',e=>{const id=e.target.dataset.checkHabit;if(!id)return;data.habitLog[selected]??={};data.habitLog[selected][id]=e.target.checked;persist();render();if(e.target.checked)notify('Habit selesai!')});
