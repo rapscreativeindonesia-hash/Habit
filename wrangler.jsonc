@@ -4,5 +4,11 @@
   "assets": {
     "directory": "./public",
     "not_found_handling": "single-page-application"
-  }
+  },
+  "routes": [
+    {
+      "pattern": "habit.rizkyhidayat.com",
+      "custom_domain": true
+    }
+  ]
 }
